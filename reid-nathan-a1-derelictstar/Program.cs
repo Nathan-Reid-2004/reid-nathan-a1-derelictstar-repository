@@ -20,11 +20,39 @@ Console.WriteLine($"\nRegistering user info...\nName: {name}\nPosition: {positio
 Console.WriteLine();
 Console.WriteLine("WARNING: Vision Module not responding! Defaulting to text-based environment scans...\nUnlocking cryo chamber... Cryo chamber unlocked.");
 Console.WriteLine();
-
-
-//player input options- dependant on what scenario the player is in (combat, code input, or exploration). These different inputs are used to separate
-// 'if' statements from one another, so that exploration/code 'if' statements do not get mixed up with combat 'if' statements.
+Console.WriteLine("Stepping out of the cryo chamber, you lay your eyes upon a ruined hospital.\nBland grey tiled floors, white metal walls, and pipes lining the ceiling along with the occasional fluorescent light casting a sickly green shade across the whole room. Strewn across the room are gurneys in disarray and IV stands tipped over onto the floor.");
+Console.WriteLine();
+Console.WriteLine("1. The floor has a trail of dried, splattered blood going in the direction of the NORTH DOOR.\n2. To the EAST is a WINDOW.\n3. To the SOUTH is your cryo chamber's info TERMINAL- barely readable with the glitchy screen and cracks in the screen.\n4. To the WEST is a large metal filing CABINET.");
+Console.WriteLine();
+Console.WriteLine("Using your interface, you may either WALK in any of the four directions given, EXAMINE an object, or PICK UP an item. \nNote that your cyber inventory is limited to 9 blocks. Heavy items such as weapons will take up 2 blocks, whereas the remaining items will only use 1 slot. \nYou may display your inventory by typing DISPLAY INVENTORY. " +
+    "\nWhat would you like to do? Please provide sufficicent details for your cyber inferface to use- ensure you are typing in all caps. Ex. WALK EAST TO WINDOW or EXAMINE WINDOW or PICK UP AMMO.\n*PentaCorp is not liable for any interface-related mishaps, including injuries or deaths.\nIt is the user's responsibility to use the software properly and in a safe manner (as per the Consumer Restraint Agreement of 2177)*");
 string playerInputExplore = Console.ReadLine();
+if (playerInputExplore == "WALK EAST TO WINDOW")
+{
+    Console.WriteLine("You stumble your way towards the WINDOW");
+    if (playerInputExplore == "EXAMINE WINDOW")
+    {
+        Console.WriteLine("The window has a few scrapes and small dents, but nothing serious. Gazing through the window, all your see is the vast emptiness of space.");
+    }
+}
+else if (playerInputExplore == "WALK WEST TO CABINET")
+{
+    Console.WriteLine("You groggily head over to the filing CABINET");
+    if (playerInputExplore == "EXAMINE CABINET")
+    {
+        Console.WriteLine("You open each metal drawer, sifting through the various documents within. You eventually feel a box with heavy objects rolling around inside. Pulling the box out of the stacks of papers, it is revealed to be a box of AMMO.");
+    }
+}
+else
+{
+    Console.WriteLine("Invalid input. Please try again.");
+}
+
+
+    //player input options- dependant on what scenario the player is in (combat, code input, or exploration). These different inputs are used to separate
+    // 'if' statements from one another, so that exploration/code 'if' statements do not get mixed up with combat 'if' statements.
+
+//string playerInputExplore = Console.ReadLine();
 
 string playerInputBattle = Console.ReadLine();
 
@@ -63,6 +91,7 @@ int playerHealth = 5;
 if (playerInputBattle == "USE MEDICAL PATCH")
 {
     playerHealth += 5;
+    Console.WriteLine("Vital biological systems maintained. +3 health.");
 }
 else if (playerHealth <= 10)
 {
@@ -96,6 +125,8 @@ string inventoryDisplay8 = ("");
 string inventoryDisplay9 = ("");
 string inventoryDisplay10 = ("");
 string inventoryDisplay11 = ("");
+string inventoryDisplay12 = ("");
+string inventoryDisplay13 = ("");
 
 int playerInv = 0;
 if (playerInv >= 12)
@@ -104,7 +135,7 @@ if (playerInv >= 12)
 }
 else if (playerInputExplore == "DISPLAY INVENTORY")
 {
-    Console.WriteLine($"1. {inventoryDisplay}\n2. {inventoryDisplay1}\n3. {inventoryDisplay2}\n4. {inventoryDisplay3}\n5. {inventoryDisplay4}\n6. {inventoryDisplay5}\n7. {inventoryDisplay6}\n8. {inventoryDisplay7}\n9. {inventoryDisplay8}\n10. {inventoryDisplay9}\n10. {inventoryDisplay10}\n10. {inventoryDisplay11}");
+    Console.WriteLine($"1. {inventoryDisplay}\n2. {inventoryDisplay1}\n3. {inventoryDisplay2}\n4. {inventoryDisplay3}\n5. {inventoryDisplay4}\n6. {inventoryDisplay5}\n7. {inventoryDisplay6}\n8. {inventoryDisplay7}\n9. {inventoryDisplay8}\n10. {inventoryDisplay9}\n10. {inventoryDisplay10}\n10. {inventoryDisplay11}\n11. {inventoryDisplay12}\n12. {inventoryDisplay13}");
 }
 
 //player ammo system and weapon stats.
@@ -118,20 +149,24 @@ if (playerInputExplore == $"DROP {gunPre}")
     playerInv -= heavyItem;
     inventoryDisplay = ("");
     inventoryDisplay1 = ("");
+    Console.WriteLine($"Item dropped: {gunPre}.");
 }
 else if (playerInputExplore == $"PICK UP {gunPre}")
 {
     playerInv += heavyItem;
     inventoryDisplay = ($"{gunPre}");
     inventoryDisplay1 = ($"{gunPre} Magazines");
+    Console.WriteLine($"Items added to inventory: {gunPre}.");
 }
-else if (playerInputBattle == "USE STRENGTH BOOSTER")
+else if (playerInputBattle == $"USE STRENGTH BOOSTER ON {gunPre}")
 {
     gunPreDmg += 3;
+    Console.WriteLine("STRENGTH BOOSTER applied. +3 damage.");
 }
 else if (playerInputBattle == $"USE {gunPre}")
 {
     playerAmmo -= 1;
+    Console.WriteLine($"Ammunition spent! {playerAmmo} remaining.");
 }
 
 //assualt rifle.
@@ -142,20 +177,24 @@ if (playerInputExplore == $"DROP {gunAR}")
     playerInv -= heavyItem;
     inventoryDisplay3 = ("");
     inventoryDisplay4 = ("");
+    Console.WriteLine($"Item dropped: {gunAR}.");
 }
 else if (playerInputExplore == $"PICK UP {gunAR}")
 {
     playerInv += heavyItem;
     inventoryDisplay3 = ($"{gunAR}");
     inventoryDisplay4 = ($"{gunAR} Magazines");
+    Console.WriteLine($"Items added to inventory: {gunAR}.");
 }
-else if (playerInputBattle == "USE STRENGTH BOOSTER")
+else if (playerInputBattle == $"USE STRENGTH BOOSTER ON {gunAR}")
 {
     gunARDmg += 3;
+    Console.WriteLine("STRENGTH BOOSTER applied. +3 damage.");
 }
 else if (playerInputBattle == $"USE {gunAR}")
 {
     playerAmmo -= 9;
+    Console.WriteLine($"Ammunition spent! {playerAmmo} remaining.");
 }
 
 //shotgun.
@@ -166,20 +205,24 @@ if (playerInputExplore == $"DROP {gunShot}")
     playerInv -= heavyItem;
     inventoryDisplay5 = ("");
     inventoryDisplay6 = ("");
+    Console.WriteLine($"Item dropped: {gunShot}.");
 }
 else if (playerInputExplore == $"PICK UP {gunShot}")
 {
     playerInv += heavyItem;
     inventoryDisplay5 = ($"{gunShot}");
     inventoryDisplay6 = ($"{gunShot} Slugs");
+    Console.WriteLine($"Items added to inventory: {gunShot}.");
 }
-else if (playerInputBattle == "USE STRENGTH BOOSTER")
+else if (playerInputBattle == $"USE STRENGTH BOOSTER ON {gunShot}")
 {
-    gunShotDmg = 3;
+    gunShotDmg += 3;
+    Console.WriteLine("STRENGTH BOOSTER applied. +3 damage.");
 }
 else if (playerInputBattle == $"USE {gunShot}")
 {
     playerAmmo -= 7;
+    Console.WriteLine($"Ammunition spent! {playerAmmo} remaining.");
 }
 
 //grenade.
@@ -190,12 +233,24 @@ if (playerInputExplore == $"DROP {grenade}")
     playerInv -= heavyItem;
     inventoryDisplay7 = ("");
     inventoryDisplay8 = ("");
+    Console.WriteLine($"Item dropped: {grenade}.");
 }
 else if (playerInputExplore == $"PICK UP {grenade}")
 {
     playerInv += heavyItem;
     inventoryDisplay7 = ($"{grenade}");
     inventoryDisplay8 = ($"{grenade} Gunpowder Packs");
+    Console.WriteLine($"Items added to inventory: {grenade}.");
+}
+else if (playerInputBattle == $"USE STRENGTH BOOSTER ON {grenade}")
+{
+    grenade += 3;
+    Console.WriteLine("STRENGTH BOOSTER applied. +3 damage.");
+}
+else if (playerInputBattle == $"USE {grenade}")
+{
+    playerAmmo -= 1;
+    Console.WriteLine($"Ammunition spent! {playerAmmo} remaining.");
 }
 
 //bone shard.
@@ -205,15 +260,18 @@ if (playerInputExplore == $"DROP {meleeBone}")
 {
     playerInv -= lightItem;
     inventoryDisplay2 = ("");
+    Console.WriteLine($"Item dropped: {meleeBone}.");
 }
 else if (playerInputExplore == $"PICK UP {meleeBone}")
 {
     playerInv += lightItem;
     inventoryDisplay2 = ($"{meleeBone}");
+    Console.WriteLine($"Items added to inventory: {meleeBone}.");
 }
-else if (playerInputBattle == "USE STRENGTH BOOSTER")
+else if (playerInputBattle == $"USE STRENGTH BOOSTER ON {meleeBone}")
 {
     meleeBoneDmg += 3;
+    Console.WriteLine("STRENGTH BOOSTER applied. +3 damage.");
 }
 
 //bullets.
@@ -221,6 +279,7 @@ string bullets = ("AMMO");
 if (playerInputExplore == $"PICK UP {bullets}")
 {
     playerAmmo += 5;
+    Console.WriteLine("Item added: 5 counts of ammunition");
 }
 
 //medical patch.
@@ -229,11 +288,19 @@ if (playerInputExplore == $"DROP {heal}")
 {
     playerInv -= lightItem;
     inventoryDisplay9 = ("");
+    Console.WriteLine($"Item dropped: {heal}.");
+}
+else if (playerInputBattle == $"USE {heal}")
+{
+    playerInv -= lightItem;
+    inventoryDisplay9 = ("");
+    Console.WriteLine($"Item dropped: {heal}.");
 }
 else if (playerInputExplore == $"PICK UP {heal}")
 {
     playerInv += lightItem;
     inventoryDisplay9 = ($"{heal}");
+    Console.WriteLine($"Items added to inventory: {heal}.");
 }
 
 //strength booster.
@@ -242,11 +309,19 @@ if (playerInputExplore == $"DROP {strength}")
 {
     playerInv -= lightItem;
     inventoryDisplay10 = ("");
+    Console.WriteLine($"Item dropped: {strength}.");
+}
+else if (playerInputBattle == $"USE {strength}")
+{
+    playerInv -= lightItem;
+    inventoryDisplay10 = ("");
+    Console.WriteLine($"Item dropped: {strength}.");
 }
 else if (playerInputExplore == $"PICK UP {strength}")
 {
     playerInv += lightItem;
     inventoryDisplay10 = ($"{strength}");
+    Console.WriteLine($"Items added to inventory: {strength}.");
 }
 
 //speed booster.
@@ -256,6 +331,24 @@ if (playerInputBattle == "USE SPEED BOOSTER")
 {
     bool speedIsActive = true;
     Console.WriteLine("SPEED BOOSTER is now active. Combine it with battle tactics for varying results.");
+}
+else if (playerInputExplore == $"DROP {speed}")
+{
+    playerInv -= lightItem;
+    inventoryDisplay12 = ("");
+    Console.WriteLine($"Item dropped: {speed}.");
+}
+else if (playerInputBattle == $"USE {speed}")
+{
+    playerInv -= lightItem;
+    inventoryDisplay12 = ("");
+    Console.WriteLine($"Item dropped: {speed}.");
+}
+else if (playerInputExplore == $"PICK UP {speed}")
+{
+    playerInv += lightItem;
+    inventoryDisplay12 = ($"{speed}");
+    Console.WriteLine($"Items added to inventory: {speed}.");
 }
 
 //enemies and damage systems. 
