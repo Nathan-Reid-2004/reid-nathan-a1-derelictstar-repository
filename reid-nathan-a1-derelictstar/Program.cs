@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.Design;
+﻿using Microsoft.VisualBasic;
+using System.ComponentModel.Design;
 using System.Runtime.CompilerServices;
 
 Console.WriteLine("Celestial Voyage Cyber Interface... Ver. 3.1. © PentaCorp, 2189\nWelcome to the Celestial Voyage experience. You are currently subscribed" +
@@ -20,6 +21,9 @@ Console.WriteLine();
 Console.WriteLine("WARNING: Vision Module not responding! Defaulting to text-based environment scans...\nUnlocking cryo chamber... Cryo chamber unlocked.");
 Console.WriteLine();
 
+
+//player input options- dependant on what scenario the player is in (combat, code input, or exploration). These different inputs are used to separate
+// 'if' statements from one another, so that exploration/code 'if' statements do not get mixed up with combat 'if' statements.
 string playerInputExplore = Console.ReadLine();
 
 string playerInputBattle = Console.ReadLine();
@@ -27,6 +31,8 @@ string playerInputBattle = Console.ReadLine();
 string playerInputCode = Console.ReadLine();
 int codeValue = int.Parse(playerInputCode);
 
+
+//checkpoint system
 string checkpoint = ("CRYO REJUVINATION TERMINAL");
 bool cryoCheckpoint = false;
 if (playerInputExplore == $"ACTIVATE {checkpoint}")
@@ -44,6 +50,7 @@ if (playerInputExplore == $"ACTIVATE {checkpoint1}")
     Console.WriteLine("Cyber conciousness uploaded to rejuvination terminal. Previous terminal deactivated to help preserve emergency power.");
 }
 
+//code/door lock systems.
 bool CryoDoorNorthLock = true;
 if (codeValue == 9000)
 {
@@ -51,6 +58,7 @@ if (codeValue == 9000)
     Console.WriteLine("DOOR to Documentation Offices unlocked. Proceeding...");
 }
 
+//player health systems (also relates back to checkpoint system if a checkpoint is active). 
 int playerHealth = 5;
 if (playerInputBattle == "USE MEDICAL PATCH")
 {
@@ -64,12 +72,14 @@ else if (playerHealth == 0)
 {
     Console.WriteLine("Biological monitoring indicates a lack of brain activity and/or blood circulation. Vital signs reading 0%. User has expired...\nInitiating user data archiving for PentaCorp's research purposes...\nDone. System shutting down...");
 }
-else if (cryoCheckpoint == true)
+else if (cryoCheckpoint == true & playerHealth == 0) ;
 {
     playerHealth += 5;
     Console.WriteLine("Rejuvinating user body...\nRejuvination completed. Please be cautious during your first couple steps, as your biological systems may still be catching up with your cyber conciousness");
 }
 
+//inventory system- heavy items take up 2 slots, while light items take up 1 slot. different items will be displayed on different inventory
+//displays in order to avoid overlap. 
 int heavyItem = 2;
 
 int lightItem = 1;
@@ -97,8 +107,10 @@ else if (playerInputExplore == "DISPLAY INVENTORY")
     Console.WriteLine($"1. {inventoryDisplay}\n2. {inventoryDisplay1}\n3. {inventoryDisplay2}\n4. {inventoryDisplay3}\n5. {inventoryDisplay4}\n6. {inventoryDisplay5}\n7. {inventoryDisplay6}\n8. {inventoryDisplay7}\n9. {inventoryDisplay8}\n10. {inventoryDisplay9}\n10. {inventoryDisplay10}\n10. {inventoryDisplay11}");
 }
 
+//player ammo system and weapon stats.
 int playerAmmo = 0;
 
+//precision rifle.
     string gunPre = ("PRECISION RIFLE");
 int gunPreDmg = 1;
 if (playerInputExplore == $"DROP {gunPre}")
@@ -122,8 +134,9 @@ else if (playerInputBattle == $"USE {gunPre}")
     playerAmmo -= 1;
 }
 
-string gunAR = ("ASSUALT RIFLE");
-int gunARDmg = 9;
+//assualt rifle.
+string gunAR = ("BURST FIRE ASSUALT RIFLE");
+int gunARDmg = 3;
 if (playerInputExplore == $"DROP {gunAR}")
 {
     playerInv -= heavyItem;
@@ -145,8 +158,9 @@ else if (playerInputBattle == $"USE {gunAR}")
     playerAmmo -= 9;
 }
 
+//shotgun.
 string gunShot = ("SHOTGUN");
-int gunShotDmg = 7;
+int gunShotDmg = 5;
 if (playerInputExplore == $"DROP {gunShot}")
 {
     playerInv -= heavyItem;
@@ -168,8 +182,9 @@ else if (playerInputBattle == $"USE {gunShot}")
     playerAmmo -= 7;
 }
 
+//grenade.
 string grenade = ("GRENADE");
-int grenadeDmg = 1000;
+int grenadeDmg = 8;
 if (playerInputExplore == $"DROP {grenade}")
 {
     playerInv -= heavyItem;
@@ -183,8 +198,9 @@ else if (playerInputExplore == $"PICK UP {grenade}")
     inventoryDisplay8 = ($"{grenade} Gunpowder Packs");
 }
 
+//bone shard.
 string meleeBone = ("BONE SHARD");
-int meleeBoneDmg = 3;
+int meleeBoneDmg = 1;
 if (playerInputExplore == $"DROP {meleeBone}")
 {
     playerInv -= lightItem;
@@ -200,12 +216,14 @@ else if (playerInputBattle == "USE STRENGTH BOOSTER")
     meleeBoneDmg += 3;
 }
 
+//bullets.
 string bullets = ("AMMO");
 if (playerInputExplore == $"PICK UP {bullets}")
 {
     playerAmmo += 5;
 }
 
+//medical patch.
 string heal = ("MEDICAL PATCH");
 if (playerInputExplore == $"DROP {heal}")
 {
@@ -218,6 +236,7 @@ else if (playerInputExplore == $"PICK UP {heal}")
     inventoryDisplay9 = ($"{heal}");
 }
 
+//strength booster.
 string strength = ("STRENGTH BOOSTER");
 if (playerInputExplore == $"DROP {strength}")
 {
@@ -230,16 +249,22 @@ else if (playerInputExplore == $"PICK UP {strength}")
     inventoryDisplay10 = ($"{strength}");
 }
 
+//speed booster.
+bool speedIsActivate = false;
 string speed = ("SPEED BOOSTER");
 if (playerInputBattle == "USE SPEED BOOSTER")
 {
+    bool speedIsActive = true;
     Console.WriteLine("SPEED BOOSTER is now active. Combine it with battle tactics for varying results.");
 }
 
+//enemies and damage systems. 
+
+//reanimated robot.
 string reanimated = ("REANIMATED ROBOT");
 int reanimatedDmg = 2;
 int reanimatedHealth = 3;
-if (playerInputBattle == $"USE {gunPre}")
+if (playerInputBattle == $"USE {gunPre} ON {reanimated}")
 {
     gunPreDmg += 2;
 }
@@ -248,10 +273,11 @@ else if (reanimatedHealth == 0)
     Console.WriteLine("Confirming scan results...\nPotential threat deceased. You may now continue normal operations.");
 }
 
+//service bot.
 string service = ("SERVICE BOTS");
 int serviceDmg = 3;
 int serviceHealth = 5;
-if (playerInputBattle == $"USE {meleeBone}")
+if (playerInputBattle == $"USE {meleeBone} ON {service}")
 {
     meleeBoneDmg += 2;
 }
@@ -260,27 +286,98 @@ else if (serviceHealth == 0)
     Console.WriteLine("Confirming scan results...\nPotential threat deceased. You may now continue normal operations.");
 }
 
+//electric angel.
 string angels = ("ELECTRIC ANGELS");
 int angelsDmg = 5;
 int angelsHealth = 10;
-if (playerInputBattle == $"USE {gunAR}")
+if (playerInputBattle == $"USE {gunAR} ON {angels}")
 {
     gunARDmg += 2;
 }
-else if (serviceHealth == 0)
+else if (angelsHealth == 0)
 {
     Console.WriteLine("Confirming scan results...\nPotential threat deceased. You may now continue normal operations.");
 }
 
-string airlock = ("Airlock Override Key");
+//crane.
+string crane = ("CRANE");
+int craneDmg = 9;
+int craneHealth = 15;
+if (playerInputBattle == $"USE {grenade} ON {crane}")
+{
+    grenadeDmg += 2;
+}
+else if (craneHealth == 0)
+{
+    Console.WriteLine("Confirming scan results...\nPotential threat deceased. You may now continue normal operations.");
+}
 
-string steelBoots = ("Steel Boots");
+//turret.
+string turret = ("MILITARY TURRET");
+int turretDmg = 15;
+int turretHealth = 20;
+if (playerInputBattle == $"USE {gunShot} ON {turret}")
+{
+    if (speedIsActivate == true)
+    {
+        gunShotDmg = 7;
+    }
+    else if (speedIsActivate == false)
+    {
+        Console.WriteLine("You peak out from behind the corner, but the turret detects you too quickly- you have no time to react. You cannot get any hits in on the turret.");
+        gunShotDmg = 0;
+        playerHealth -= 15;
+    }
 
-string encoder = ("Keycode Encoder");
+}
+else if (turretHealth == 0)
+{
+    Console.WriteLine("Confirming scan results...\nPotential threat deceased. You may now continue normal operations.");
+}
+else
+{
+    Console.WriteLine("The weapon you have selected barely penetrates the thick armor of the turret. More firepower recommended.");
+}
 
-string goggles = ("Night Goggles");
+string pipes = ("STEAM PIPES");
+int pipesDmg = 2;
+int pipesHealth = 1;
+if (playerInputExplore == $"USE PLASMA TAPE ON {pipes}")
+{
+    pipesHealth -= 1;
+    Console.WriteLine("As you wrap the plasma tape around the tear in the pipes, the plasma coarses through the pipe's exterior, flashing before retreating into the hole and sealing it with a bright, tangled ball of electricity.");
+}
+else
+{
+    Console.WriteLine("A specific type of tape is needed to repair these pipes- this tape is usually used to repair communication systems, but it can also be applied to mechanical systems such as these steam-filled pipes. As you stand examining a particular torn pipe, hot steam comes rushing out of the tear and burns you.");
+    playerHealth -= 2;
+}
 
-string escape = ("Escape Pod Access Card");
+string coolant = ("ACIDIC COOLANT");
+int coolantDmg = 2;
+int coolantHealth = 1;
+if (playerInputExplore == $"USE STEEL BOOTS ON {coolant}")
+{
+    pipesHealth -= 1;
+    Console.WriteLine("Plunging your steel boots into the coolant, a hissing sound emerges as the liquid around your boots begins to fizz and bubble. The inside of your boots feel warm from the coolant, but you are protected.");
+}
+else
+{
+    Console.WriteLine("STEEL BOOTS are often worn by maintenence workers on starfaring vessels. If you require a pair, most of these workers can be found on the lower decks of the ship. Out of nowhere, some of the corrosive coolant spews up and a few drops of spray land on your skin, dissolving the affected skin into fleshy mush and burns.");
+    playerHealth -= 2;
+}
+
+
+//story/objective-specific items.
+string airlock = ("AIRLOCK OVERRIDE KEY");
+
+string steelBoots = ("STEEL BOOTS");
+
+string encoder = ("KEYCODE ENCODER");
+
+string escape = ("ESCAPE POD ACCESS CARD");
+
+string tape = ("PLASMA TAPE");
 
 
 
