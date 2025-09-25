@@ -1,5 +1,5 @@
 # reid-nathan-a1-derelictstar-repository
-This is a repository containing all work &amp; documents related to Assignment 1 for GAME-10003-02. Derelict Star is a text-based survival horror game created specifically for this assignment.
+This is a repository containing all work &amp; documents related to Assignment 1 for GAME-10003-02. Derelict Star is a text-based sci-fi adventure game created specifically for this assignment.
 
 The main gameplay loop of Derelict Star consists of exploring a starship's medical bay in the year 2192. The player can go either NORTH, WEST, or EAST after emerging from their cryo chamber- there are different outcomes depending on where the player chooses to go, and there is only one correct outcome from the three choices.
 
